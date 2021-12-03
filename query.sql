@@ -9,6 +9,9 @@
 -- 0.3) Inserir Guarda
     EXECUTE INSERIR_ORGANIZADOR(<ICPF>, <IEMAIL>, <INOME>, <ITELEFONE>, <ISENHA>, <INUMERO>, <IRUA>, <IBAIRRO>, <ICIDADE>, <ICEP>, <IPERMISSAO>);
 
+-- 0.4) Inserir Post
+    EXECUTE INSERIR_POST(<data_hora (TIMESTAMP)>, <CPF>, <MENSAGEM>);
+
 -- 1) evento ordenado por data
 
 SELECT E.NOME, E.DATA_E_HORA, E.LONGITUDE, E.LATITUDE
@@ -98,10 +101,7 @@ SQRT(POWER((PE.LONGITUDE - <LONGITUDE>),2) + POWER((PE.LATITUDE - <LATITUDE>),2)
 FROM PONTO_ESTRATEGICO PE
 ORDER BY DISTANCIA
 
-
--- 17) Postar qualquer coisa
-
-
+    
 -- 18) Comentar em uma postagem especifica
 
 -- 19) listar todos os comentarios de uma postagem (EM ORDEM)
