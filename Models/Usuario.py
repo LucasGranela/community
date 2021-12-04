@@ -5,7 +5,7 @@ class Usuario:
 
         result = None
         try:
-            sql = "SELECT P.CEP, P.EMAIL, P.NOME FROM PESSOA P WHERE P.EMAIL ='"+ email +"' AND P.SENHA = '"+ senha +"' "
+            sql = "SELECT P.CPF, P.EMAIL, P.NOME FROM PESSOA P WHERE P.EMAIL ='"+ email +"' AND P.SENHA = '"+ senha +"' "
 
             BD.cursor.execute(sql)
             result = BD.cursor.fetchone()

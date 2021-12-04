@@ -1,5 +1,6 @@
 from Telas.Tela import Tela,criarOpcoe
 from Controllers import usuarioController
+from Telas.Ocorrencias.minhasOcorrencias import criarTelaMinhasOcorrencias
 import credenciais
 
 def mostrarOcorrenciasProximas():
@@ -8,9 +9,12 @@ def mostrarOcorrenciasProximas():
     ocorrenciasProximas.show()
 
 def mostrarMinhasOcorrencias():
-    from Telas.Ocorrencias.minhasOcorrencias import minhasOcorrencias
+    reloadMinhasOcorrencias = [True]
 
-    minhasOcorrencias.show()
+    while(reloadMinhasOcorrencias[0]):
+        reloadMinhasOcorrencias[0] = False
+        minhasOcorrencias = criarTelaMinhasOcorrencias(reloadMinhasOcorrencias) 
+        minhasOcorrencias.show()
 
 def criarOcorrencia():
     print("teste")

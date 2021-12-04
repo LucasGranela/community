@@ -13,6 +13,7 @@ class Ocorrencia:
         self.descricao = descricao
         self.criador = criador
         self.posts = []
+        self.wasDeleted = False
         
         
     
@@ -29,14 +30,14 @@ class Ocorrencia:
         }
 
     def getResumo(self): 
-        return  self.tipo + ": " + self.subtipo + " - " + str(self.dataEHora)
+        return  str(self.tipo) + ": " + str(self.subtipo) + " - " + str(self.dataEHora)
     
     def getFormatada(self):
-        ocorrenciaTxt = self.tipo + ": " + self.subtipo + " - " + str(self.dataEHora) + "\n"
+        ocorrenciaTxt = str(self.tipo) + ": " + str(self.subtipo) + " - " + str(self.dataEHora) + "\n"
         # ocorrenciaTxt += "Criador: "  + self.criador + "\n"
         ocorrenciaTxt += "Latitude: " + str(self.latitude) + "   Longitude: " + str(self.longitude) + "\n"
-        ocorrenciaTxt += "Estado: " + self.estado + "\n"
-        ocorrenciaTxt += "Descricao: "  + self.descricao + "\n"
+        ocorrenciaTxt += "Estado: " + str(self.estado) + "\n"
+        ocorrenciaTxt += "Descricao: "  + str(self.descricao) + "\n"
         
         for post in self.posts:
             ocorrenciaTxt += post.getFormatada
@@ -45,6 +46,34 @@ class Ocorrencia:
     
     def loadPosts(self):
         self.posts = []
+
+    def delete(self):
+        try:
+            sql = 'DELETE FROM OCORRENCIA WHERE ID = :ID'
+            BD.cursor.execute(sql,[self.ID])
+            BD.connection.commit()
+            self.wasDeleted = True
+            return True
+        except:
+            return False
+
+        
+
+    def getWasDeleted(self):
+        return self.wasDeleted
+
+    def edite(self,latitude,longitude,tipo,subtipo,descricao):
+        if(latitude != None or latitude != ""):
+            self.latitude = latitude
+        if(longitude != None or longitude != ""):
+            self.longitude = longitude
+        if(tipo != None or tipo != ""):
+            self.tipo = tipo
+        if(subtipo != None or subtipo != ""):
+            self.subtipo = subtipo
+        if(descricao != None or descricao != ""):
+            self.descricao = descricao
+        
 
     @staticmethod
     def getOcorrenciasRegiao(latitude,longitude):
@@ -63,11 +92,9 @@ class Ocorrencia:
     
     @staticmethod
     def getOcorrenciaDeUmUsuario(idUsuario):
-        result=[
-            [1, "05/06/2001", "1111", "2222", "Estrutural", "Alagamento","Nao verificado"],
-            [2, "05/06/2001", "1111", "2222", "Estrutural", "Incendio","Nao verificado"],
-            [3, "05/06/2001", "1111", "2222", "Estrutural", "Cano quebrado","Nao verificado"]
-        ]
+        sql = "SELECT ID, DATA_E_HORA, LATITUDE, LONGITUDE, TIPO, SUBTIPO, ESTADO, DESCRICAO, CRIADOR FROM OCORRENCIA WHERE CRIADOR = :idUsuario"
+        BD.cursor.execute(sql,[idUsuario])
+        result = BD.cursor.fetchmany()
 
         ocorrencias = []
 

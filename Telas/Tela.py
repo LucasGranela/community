@@ -6,14 +6,20 @@ def criarOpcoe(texto,acao = None):
     
 
 class Tela:
-    def __init__(self,opcoes,back,textoComeco = ""):
+    def __init__(self,opcoes,back,textoComeco = "", forcarFechamento = None):
         self.opcoes = opcoes
         self.back = back
         self.textoComeco = textoComeco
+        self.forcarFechamento =  forcarFechamento
     
         
     def show(self):
         while(True):
+
+            if(self.forcarFechamento != None):
+                if(self.forcarFechamento()):
+                    break
+
             print("")
 
             if(self.textoComeco != None):
