@@ -1,12 +1,12 @@
-from Models.Usuario.Usuario import Usuario
+from Models.Usuario import Usuario
 
-def init(cursor,email,senha):
+def init(email,senha):
 
     global usuario
     usuario = None
 
     try:
-        usuario = Usuario(cursor,email,senha)
+        usuario = Usuario(email,senha)
     except Exception as error:
         print(error)
     

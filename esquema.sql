@@ -360,21 +360,21 @@ CREATE TABLE CIDADE_DE_OPERACAO (
     -- Calculando a distância entre dois pontos utilizando latitude e longitude utilizando a fórmula de Haversine com percentual de ajuste de 15%
     -- Fonte: https://www.dirceuresende.com/blog/sql-server-como-calcular-a-distancia-entre-dois-locais-utilizando-latitude-e-longitude-sem-api/
     
-    CREATE FUNCTION dbo.fncCalcula_Distancia_Coordenada (
-    @Latitude1 FLOAT,
-    @Longitude1 FLOAT,
-    @Latitude2 FLOAT,
-    @Longitude2 FLOAT
+    CREATE OR REPLACE FUNCTION CDLL (
+    Latitude1 FLOAT,
+    Longitude1 FLOAT,
+    Latitude2 FLOAT,
+    Longitude2 FLOAT
     )
-    RETURNS FLOAT
-    AS
+    RETURN FLOAT
+    IS
+        PI FLOAT := 3.14159265358979;
+        lat1Radianos FLOAT := Latitude1 * PI / 180;
+        lng1Radianos FLOAT := Longitude1 * PI / 180;
+        lat2Radianos FLOAT := Latitude2 * PI / 180;
+        lng2Radianos FLOAT := Longitude2 * PI / 180;
     BEGIN
-    DECLARE @PI FLOAT = PI()
-    DECLARE @lat1Radianos FLOAT = @Latitude1 * @PI / 180
-    DECLARE @lng1Radianos FLOAT = @Longitude1 * @PI / 180
-    DECLARE @lat2Radianos FLOAT = @Latitude2 * @PI / 180
-    DECLARE @lng2Radianos FLOAT = @Longitude2 * @PI / 180
-    RETURN (ACOS(COS(@lat1Radianos) * COS(@lng1Radianos) * COS(@lat2Radianos) * COS(@lng2Radianos) + COS(@lat1Radianos) * SIN(@lng1Radianos) * COS(@lat2Radianos) * SIN(@lng2Radianos) + SIN(@lat1Radianos) * SIN(@lat2Radianos)) * 6371) * 1.15
-    END
+        RETURN (ACOS(COS(lat1Radianos) * COS(lng1Radianos) * COS(lat2Radianos) * COS(lng2Radianos) + COS(lat1Radianos) * SIN(lng1Radianos) * COS(lat2Radianos) * SIN(lng2Radianos) + SIN(lat1Radianos) * SIN(lat2Radianos)) * 6371) * 1.15;
+    END;
 
 /
