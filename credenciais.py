@@ -1,1 +1,1 @@
-usuario = None
+usuario = 0
