@@ -1,12 +1,15 @@
 from Telas.Tela import Tela,criarOpcoe
-from Telas.Ocorrencias.minhasOcorrencias import minhasOcorrencias
 from Controllers import usuarioController
 import credenciais
 
 def mostrarOcorrenciasProximas():
-    print("teste")
+    from Telas.Ocorrencias.ocorrenciasProximas import ocorrenciasProximas
+
+    ocorrenciasProximas.show()
 
 def mostrarMinhasOcorrencias():
+    from Telas.Ocorrencias.minhasOcorrencias import minhasOcorrencias
+
     minhasOcorrencias.show()
 
 def criarOcorrencia():

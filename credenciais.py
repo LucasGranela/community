@@ -1,1 +1,2 @@
-usuario = 0
+usuario = None
+ocorrencias = []

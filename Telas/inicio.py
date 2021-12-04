@@ -14,7 +14,7 @@ def login():
 
     print(credenciais.usuario)
 
-    if(credenciais.usuario != 0):
+    if(credenciais.usuario != None):
         telaUsuario.show()
 
 
