@@ -6,8 +6,7 @@ import credenciais
 def criarTelaMinhasOcorrencias(reloadTela):
     def forcaFechamento():
         for ocorrencia in credenciais.ocorrencias:
-            print(ocorrencia.getWasDeleted())
-            if(ocorrencia.getWasDeleted()):
+            if(ocorrencia.getPrecisaAtualizar()):
                 reloadTela[0] = True
                 return True
         
@@ -29,8 +28,7 @@ def criarTelaMinhasOcorrencias(reloadTela):
 
     count = 0
     for ocorrencia in credenciais.ocorrencias:
-        print(ocorrencia.getWasDeleted())
-        if(ocorrencia != None and ocorrencia.getWasDeleted() == False):
+        if(ocorrencia != None):
             opcoes.append(criarOpcoe(ocorrencia.getResumo(),createMostrarOcorrencia(count)))
         count +=1
 

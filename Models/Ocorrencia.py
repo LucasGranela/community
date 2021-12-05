@@ -13,7 +13,7 @@ class Ocorrencia:
         self.descricao = descricao
         self.criador = criador
         self.posts = []
-        self.wasDeleted = False
+        self.precisaAtualizar = False
         
         
     
@@ -29,9 +29,13 @@ class Ocorrencia:
             'criador': self.criador
         }
 
+
+
     def getResumo(self): 
         return  str(self.tipo) + ": " + str(self.subtipo) + " - " + str(self.dataEHora)
     
+
+
     def getFormatada(self):
         ocorrenciaTxt = str(self.tipo) + ": " + str(self.subtipo) + " - " + str(self.dataEHora) + "\n"
         # ocorrenciaTxt += "Criador: "  + self.criador + "\n"
@@ -44,36 +48,54 @@ class Ocorrencia:
 
         return ocorrenciaTxt
     
+
+
     def loadPosts(self):
         self.posts = []
+
+
 
     def delete(self):
         try:
             sql = 'DELETE FROM OCORRENCIA WHERE ID = :ID'
             BD.cursor.execute(sql,[self.ID])
             BD.connection.commit()
-            self.wasDeleted = True
+            self.precisaAtualizar = True
             return True
         except:
             return False
 
         
 
-    def getWasDeleted(self):
-        return self.wasDeleted
+    def getPrecisaAtualizar(self):
+        return self.precisaAtualizar
+
+
 
     def edite(self,latitude,longitude,tipo,subtipo,descricao):
-        if(latitude != None or latitude != ""):
-            self.latitude = latitude
-        if(longitude != None or longitude != ""):
-            self.longitude = longitude
-        if(tipo != None or tipo != ""):
-            self.tipo = tipo
-        if(subtipo != None or subtipo != ""):
-            self.subtipo = subtipo
-        if(descricao != None or descricao != ""):
-            self.descricao = descricao
+        # try:
+            if(latitude != None and latitude != ""):
+                self.latitude = latitude
+            if(longitude != None and longitude != ""):
+                self.longitude = longitude
+            if(tipo != None and tipo != ""):
+                self.tipo = tipo
+            if(subtipo != None and subtipo != ""):
+                self.subtipo = subtipo
+            if(descricao != None and descricao != ""):
+                self.descricao = descricao
+
+            sql = 'UPDATE OCORRENCIA SET LATITUDE = :LATITUDE, LONGITUDE = :LONGITUDE, TIPO = :TIPO , SUBTIPO = :SUBTIPO , DESCRICAO = :DESCRICAO WHERE ID= :ID'
+            BD.cursor.execute(sql,[self.latitude,self.longitude,self.tipo,self.subtipo,self.descricao,self.ID])
+            BD.connection.commit()
+
+            self.precisaAtualizar = True
+
+            return True
+        # except:
+            return False
         
+
 
     @staticmethod
     def getOcorrenciasRegiao(latitude,longitude):

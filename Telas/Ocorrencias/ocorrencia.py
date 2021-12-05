@@ -21,5 +21,5 @@ def criarTelaDeOcorrencia(ocorrencia):
     ]
     back = criarOpcoe('Voltar')
 
-    telaOcorrencia = Tela(opcoes,back,textoComeco,ocorrencia.getWasDeleted)
+    telaOcorrencia = Tela(opcoes,back,textoComeco,ocorrencia.getPrecisaAtualizar)
     return telaOcorrencia
