@@ -12,8 +12,6 @@ def login():
 
     credenciais.usuario = usuarioController.init(email, senha)
 
-    print(credenciais.usuario)
-
     if(credenciais.usuario != None):
         telaUsuario.show()
 

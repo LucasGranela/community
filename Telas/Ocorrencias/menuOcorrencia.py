@@ -1,11 +1,12 @@
+from Models.Ocorrencia import Ocorrencia
 from Telas.Tela import Tela,criarOpcoe
-from Controllers import usuarioController
 from Telas.Ocorrencias.minhasOcorrencias import criarTelaMinhasOcorrencias
+from Telas.Ocorrencias.ocorrenciasProximas import criarTelaOcorrenciasProximas
+from opcoes import tiposOcorrencia,subtiposOcorrenciaCriminal,subtiposOcorrenciaCriminalValues,subtiposOcorrenciaEstrutural,subtiposOcorrenciaEstruturalValues,terminalSelect
 import credenciais
 
 def mostrarOcorrenciasProximas():
-    from Telas.Ocorrencias.ocorrenciasProximas import ocorrenciasProximas
-
+    ocorrenciasProximas = criarTelaOcorrenciasProximas()
     ocorrenciasProximas.show()
 
 def mostrarMinhasOcorrencias():
@@ -17,7 +18,45 @@ def mostrarMinhasOcorrencias():
         minhasOcorrencias.show()
 
 def criarOcorrencia():
-    print("teste")
+   
+    latitude = None
+    while(True):
+        try:
+            latitude = input("Latitude: ")
+            latitude = str(float(latitude))
+
+            break
+        except:
+            print("Latitude invalida.")
+            continue
+    longitude = None
+    while(True):
+        try:
+            longitude = input("Longitude: ")
+            longitude = str(float(longitude))
+            
+            break
+
+        except:
+            print("Longitude invalida.")
+            continue
+    
+    
+    print('----Tipo----')
+    tipo = terminalSelect(tiposOcorrencia,None,False)
+    print('----Subtipo----')
+    if(tipo == 0):
+        subtipo = terminalSelect(subtiposOcorrenciaCriminal,subtiposOcorrenciaCriminalValues,False)
+    if(tipo == 1):
+        subtipo = terminalSelect(subtiposOcorrenciaEstrutural,subtiposOcorrenciaEstruturalValues,False)
+    descricao = input("Descricao: ")
+    
+    if(Ocorrencia.criar(latitude,longitude,tipo,subtipo,descricao,credenciais.usuario.toArray()["CPF"])):
+        print("Ocorrencia criada com sucesso!")
+    else:
+        print("Algo deu errado na criacao da ocorrencia! Verifique sua conexao com a internet.")
+        print("Se o problema persistir, tente reiniciar o programa.")
+
 
 
     

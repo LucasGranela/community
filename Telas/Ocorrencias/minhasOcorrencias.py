@@ -15,7 +15,7 @@ def criarTelaMinhasOcorrencias(reloadTela):
     def createMostrarOcorrencia(indexOcorrencia):
         
         def mostrarOcorrencia():
-            telaOcorrencia = criarTelaDeOcorrencia(credenciais.ocorrencias[indexOcorrencia])
+            telaOcorrencia = criarTelaDeOcorrencia(credenciais.ocorrencias[indexOcorrencia],True)
             telaOcorrencia.show()
         
         return mostrarOcorrencia
@@ -27,10 +27,15 @@ def criarTelaMinhasOcorrencias(reloadTela):
     opcoes = []
 
     count = 0
-    for ocorrencia in credenciais.ocorrencias:
-        if(ocorrencia != None):
-            opcoes.append(criarOpcoe(ocorrencia.getResumo(),createMostrarOcorrencia(count)))
-        count +=1
+    if(credenciais.ocorrencias != None):
+        for ocorrencia in credenciais.ocorrencias:
+            if(ocorrencia != None):
+                opcoes.append(criarOpcoe(ocorrencia.getResumo(),createMostrarOcorrencia(count)))
+            count +=1
+    elif(credenciais.ocorrencias == []):
+        print('Nao foram encontradas ocorrencias.')
+    else:
+        print("Houve alguma erro no carregamento. Verifique sua conexao de internet!")
 
     back = criarOpcoe('Voltar')
 
