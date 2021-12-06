@@ -1,3 +1,4 @@
+print("------ Community ------")
 import credenciais
 import BD
 from Telas.inicio import inicio
