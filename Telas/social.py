@@ -9,7 +9,7 @@ def mostrarPessoasSeguidas():
     print("------------------------")
     listaSeguidos = credenciais.usuario.listarSeguidos()
     if(listaSeguidos != None):
-        for row in listaSeguidos():
+        for row in listaSeguidos:
             print('|', *row, sep='')
         print("------------------------")
         print("")
